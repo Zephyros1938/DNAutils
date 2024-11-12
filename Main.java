@@ -10,16 +10,14 @@ public class Main {
         }
 
         String inDNA = args[0];
-
+        StringBuilder str_mRNA = new StringBuilder();
         String groupID = "N/A";
 
         if(args.length >= 2){
             groupID = args[1];
         }
 
-        StringBuilder strRNA = new StringBuilder();
-
-        String outRNA = inDNA
+        String outRNA = inDNA           // DNA TO RNA CONVERSION
                 .replaceAll("A", "1")   // CONVERT A TO 1
                 .replaceAll("C", "2")   // CONVERT C TO 2
                 .replaceAll("G", "3")   // CONVERT G TO 3
@@ -31,7 +29,7 @@ public class Main {
         
 
         for (int i = 0; i < inDNA.length(); i++) {
-            strRNA.append(inDNA.substring(i, i + 1).replaceAll("A", "1")
+            str_mRNA.append(inDNA.substring(i, i + 1).replaceAll("A", "1")
                     .replaceAll("C", "2")
                     .replaceAll("G", "3")
                     .replaceAll("T", "4")
@@ -40,11 +38,11 @@ public class Main {
                     .replaceAll("3", "C")
                     .replaceAll("4", "A"));
             if (i % 3 == 2) {
-                strRNA.append(' ');
+                str_mRNA.append(' ');
             }
         }
 
-        String outProteinLetter = strRNA.toString()
+        String outProteinLetter = str_mRNA.toString()
                 .replaceAll("(UUU|UUC)", "F")                   // Phe
                 .replaceAll("(UUA|UUG|CUU|CUC|CUA|CUG)", "L")   // Leu
                 .replaceAll("(AUU|AUC|AUA)", "I")               // Ile
@@ -68,7 +66,7 @@ public class Main {
                 .replaceAll("(GGU|GGC|GGA|GGG)", "G")           // Gly
                 .replaceAll("(UAA|UAG|UGA)", "*");              // STOP
         
-        String outProteinAbbr = strRNA.toString()
+        String outProteinAbbr = str_mRNA.toString()
                 .replaceAll("(UUU|UUC)", "PHE ")                   // Phe
                 .replaceAll("(UUA|UUG|CUU|CUC|CUA|CUG)", "LEU ")   // Leu
                 .replaceAll("(AUU|AUC|AUA)", "ILE ")               // Ile
@@ -93,8 +91,9 @@ public class Main {
                 .replaceAll("(UAA|UAG|UGA)", "STOP ");             // STOP
 
         System.out.println("GROUP ID " + groupID + "\n------------------------------------------");
-        System.out.println("DNA converted to RNA    :\n\t" + outRNA);
-        System.out.println("Protein Abbriations     :\n\t" + outProteinAbbr);
-        System.out.println("Protein Letters         :\n\t" + outProteinLetter.replaceAll(" ", "") + '\n');
+        System.out.println("DNA converted to mRNA    :\n\t" + outRNA);
+        System.out.println("mRNA converted to Codons :\n\t" + str_mRNA);
+        System.out.println("Protein Abbriations      :\n\t" + outProteinAbbr);
+        System.out.println("Protein Chain            :\n\t" + outProteinLetter.replaceAll(" ", "") + '\n');
     }
 }
