@@ -1,0 +1,4 @@
+Manifest-Version: 1.1
+Created-By: Zephyros1938
+Package-Name: DNAutils
+Main-Class: com.zephyros1938.edu.DNAutils
